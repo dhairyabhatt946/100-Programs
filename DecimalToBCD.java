@@ -7,25 +7,34 @@ public class DecimalToBCD {
         System.out.print("Enter decimal number: ");
         int decimal = sc.nextInt();
         sc.close();
-        String binary = decimalToBCD(decimal);
-        System.out.println("BCD of " + decimal + " is " + binary);
+        
+        String bcd = decimalToBCD(decimal);
+        System.out.println("BCD of " + decimal + " is " + bcd);
     }
 
     public static String decimalToBCD(int decimal) {
-        if(decimal == 0) return "0";
+        if (decimal == 0) return "0000";
 
-        String binary = "";
+        String bcd = "";
 
-        while(decimal != 0) {
-            if(decimal % 2 == 0) {
-                binary = "0" + binary;
+        while (decimal != 0) {
+            int num = decimal % 10;
+            String temp = "";
+
+            while (temp.length() != 4) {
+                if (num % 2 == 0) {
+                    temp = "0" + temp;
+                } else {
+                    temp = "1" + temp;
+                }
+                num /= 2;
             }
-            else {
-                binary = "1" + binary;
-            }
-            decimal /= 2;
+
+            bcd = temp + (bcd.isEmpty() ? "" : " " + bcd);
+
+            decimal /= 10;
         }
 
-        return binary;
+        return bcd;
     }
 }
